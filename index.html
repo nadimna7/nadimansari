@@ -214,6 +214,110 @@ section h2::after{content:"";display:block;width:72px;height:6px;margin-top:.28e
   background:rgba(11,15,25,.72);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
 @media(prefers-reduced-motion:reduce){#as3::before,#as3::after{animation:none}}
 </style>
+
+<style>
+/* ===== ADD-ON: Projects showcase (appended only; nothing above is edited) ===== */
+#projects{--pj-ink:#16161a;--pj-mute:#4a4a53;background:linear-gradient(180deg,#f7f3ea 0%,#eef0fc 100%)}
+.pj-lead{margin-top:1.25rem;font-size:1.2rem;color:var(--pj-mute)}
+.pj-stack{margin-top:clamp(2.5rem,6vw,4.5rem);display:grid;gap:clamp(1.25rem,3vw,2rem)}
+
+/* each project is a card that sticks, so the next one slides over it */
+.pj-card{--bg:#e4e8ff;position:sticky;top:calc(5.25rem + var(--i,0)*1rem);display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(1.25rem,3.5vw,3rem);align-items:center;
+  padding:clamp(1.1rem,2.6vw,2.2rem);border-radius:22px;background:var(--bg);border:1px solid rgba(51,64,184,.14);
+  box-shadow:0 18px 40px -28px rgba(51,64,184,.35);transform-origin:50% 0;will-change:transform}
+.pj-c1{--bg:#e4e8ff}  /* light indigo */
+.pj-c2{--bg:#f6ecd9}  /* cream */
+.pj-c3{--bg:#fbe4eb}  /* light pink */
+.pj-c4{--bg:#edeffb}  /* pale indigo */
+
+/* animated photo stage: browser frame, slow drift, cross-fade, pointer tilt */
+.pj-stage{perspective:1200px;min-width:0}
+.pj-frame{border-radius:12px;overflow:hidden;background:#fff;border:1px solid rgba(22,22,26,.12);
+  box-shadow:0 24px 48px -26px rgba(22,22,60,.45);
+  transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .35s var(--ease)}
+.pj-bar{display:flex;align-items:center;gap:.4rem;padding:.55rem .8rem;background:#f3f1ec;border-bottom:1px solid rgba(22,22,26,.08);font-size:.8rem;color:#55555d}
+.pj-bar i{flex:none;width:.55rem;height:.55rem;border-radius:50%;background:#d6d2c8}
+.pj-bar span{margin-left:.6rem;flex:1;min-width:0;background:#fff;border-radius:999px;padding:.15rem .7rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pj-shots{position:relative;aspect-ratio:1440/675;background:#fff;overflow:hidden}
+.pj-shot{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .7s var(--ease),visibility 0s .7s}
+.pj-shot.on{opacity:1;visibility:visible;transition:opacity .7s var(--ease),visibility 0s}
+.pj-shot img{display:block;width:100%;height:100%;object-fit:cover;object-position:top;transform-origin:0 0}
+.pj-shot.on img{animation:pj-drift 9s ease-out both}
+@keyframes pj-drift{from{transform:scale(1)}to{transform:scale(1.045)}}
+
+.pj-tabs{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
+.pj-tab{font:inherit;font-size:.9rem;font-weight:600;padding:.45rem .95rem;border-radius:999px;border:1px solid rgba(22,22,26,.28);
+  background:transparent;color:var(--pj-ink);cursor:pointer;transition:background .25s,color .25s,border-color .25s}
+.pj-tab:hover{border-color:var(--indigo-l)}
+.pj-tab[aria-pressed="true"]{background:var(--indigo-l);border-color:var(--indigo-l);color:#fff}
+.pj-cap{margin-top:.6rem;font-size:.92rem;color:var(--pj-mute);min-height:2.8em}
+
+/* text side */
+.pj-body{min-width:0}
+.pj-body h3{font-size:clamp(1.6rem,2.8vw,2.3rem);letter-spacing:-.03em;line-height:1.1}
+.pj-body p{margin-top:.8rem;color:var(--pj-mute)}
+.pj-body ul{margin-top:1rem;list-style:none;display:grid;gap:.55rem}
+.pj-body li{position:relative;padding-left:1.5rem;font-size:.98rem}
+.pj-body li::before{content:"";position:absolute;left:0;top:.7em;width:.85rem;height:2px;background:var(--indigo-l)}
+.pj-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.1rem}
+.pj-tags span{font-size:.82rem;padding:.2rem .65rem;border-radius:999px;background:rgba(255,255,255,.65);border:1px solid rgba(22,22,26,.12)}
+.pj-link{display:inline-block;margin-top:1.1rem;font-weight:600;text-decoration:none;padding-bottom:2px;
+  background:linear-gradient(var(--indigo-l),var(--indigo-l)) 0 100%/100% 2px no-repeat;transition:background-size .3s,color .3s}
+.pj-link:hover{background-size:100% 100%;color:#fff}
+
+/* reactions */
+.pj-react{position:relative;display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;margin-top:1.3rem}
+.pj-react small{width:100%;font-size:.85rem;color:var(--pj-mute)}
+.pj-r{font:inherit;font-size:1rem;display:inline-flex;align-items:center;gap:.35rem;padding:.4rem .75rem;border-radius:999px;
+  border:1px solid rgba(22,22,26,.2);background:rgba(255,255,255,.7);cursor:pointer;transition:transform .2s var(--ease),background .2s}
+.pj-r:hover{transform:translateY(-2px);background:#fff}
+.pj-r:active{transform:scale(.94)}
+.pj-r b{font-size:.85rem;font-weight:600;min-width:1ch;color:var(--pj-mute)}
+.pj-fly{position:absolute;bottom:100%;pointer-events:none;font-size:1.4rem;z-index:3}
+
+/* AI agents: drawn mock (no screenshots yet) */
+.pj-mock{display:grid;place-items:center;padding:1rem;background:linear-gradient(135deg,#f3f4ff,#fbf3ee)}
+.pj-chat{width:min(92%,430px);display:grid;gap:.5rem}
+.pj-b{max-width:84%;padding:.55rem .8rem;border-radius:14px;font-size:.88rem;line-height:1.35;opacity:0}
+.pj-b.u{justify-self:end;background:var(--indigo-l);color:#fff;border-bottom-right-radius:4px}
+.pj-b.a{background:#fff;color:var(--pj-ink);border:1px solid rgba(22,22,26,.1);border-bottom-left-radius:4px}
+.pj-shot.on .pj-b{animation:pj-pop .5s var(--ease) both;animation-delay:calc(var(--k)*.9s + .3s)}
+@keyframes pj-pop{from{opacity:0;transform:translateY(10px) scale(.97)}to{opacity:1;transform:none}}
+.pj-call{display:grid;justify-items:center;gap:.7rem;text-align:center;font-size:.92rem;color:var(--pj-ink)}
+.pj-ring{position:relative;width:64px;height:64px;border-radius:50%;background:var(--indigo-l);color:#fff;display:grid;place-items:center;font-size:1.6rem}
+.pj-ring::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--indigo-l);animation:pj-rg 1.8s ease-out infinite}
+@keyframes pj-rg{from{transform:scale(1);opacity:.7}to{transform:scale(1.9);opacity:0}}
+.pj-wave{display:flex;align-items:center;gap:4px;height:44px}
+.pj-wave i{width:5px;height:100%;border-radius:3px;background:var(--indigo-l);transform:scaleY(.2);animation:pj-bar 1.1s ease-in-out infinite;animation-delay:calc(var(--k)*-.11s)}
+@keyframes pj-bar{50%{transform:scaleY(1)}}
+.pj-shot:not(.on) .pj-wave i,.pj-shot:not(.on) .pj-ring::after{animation-play-state:paused}
+.pj-ill{position:absolute;right:.7rem;bottom:.55rem;font-size:.75rem;color:var(--pj-mute)}
+
+@media(max-width:860px){
+  .pj-card{position:relative;top:auto;grid-template-columns:1fr;will-change:auto}
+}
+@media(prefers-reduced-motion:reduce){
+  .pj-shot,.pj-shot.on{transition:none}
+  .pj-shot.on img{animation:none}
+  .pj-shot.on .pj-b{animation:none;opacity:1}
+  .pj-ring::after{animation:none}
+  .pj-wave i{animation:none;transform:scaleY(.6)}
+  .pj-frame{transition:none}
+}
+</style>
+
+<style>
+/* ===== ADD-ON: Fluid-tail cursor (appended only; nothing above is edited) ===== */
+.ct{position:fixed;left:0;top:0;border-radius:50%;pointer-events:none;z-index:9999;opacity:0;transition:opacity .3s;will-change:transform;
+  background:radial-gradient(circle,rgba(107,122,255,.62),rgba(232,121,168,.4) 60%,transparent 72%)}
+html.ct-on .ct{opacity:var(--o,1)}
+.ct-dot{position:fixed;left:0;top:0;width:9px;height:9px;margin:-4.5px 0 0 -4.5px;border-radius:50%;background:#4150e8;
+  box-shadow:0 0 0 1.5px rgba(255,255,255,.92);pointer-events:none;z-index:10000;opacity:0;
+  transition:opacity .3s,width .25s,height .25s,margin .25s;will-change:transform}
+html.ct-on .ct-dot{opacity:1}
+.ct-dot.ct-hot{width:16px;height:16px;margin:-8px 0 0 -8px}
+html.ct-on,html.ct-on *{cursor:none!important}
+</style>
 </head>
 <body>
 <div class="progress" aria-hidden="true"></div>
@@ -298,6 +402,88 @@ section h2::after{content:"";display:block;width:72px;height:6px;margin-top:.28e
       <li data-reveal><div><h3>Technology</h3><p class="mute">Code became a second craft, and a tool for fixing those breaks.</p></div></li>
       <li data-reveal><div><h3>Business</h3><p class="mute">Bringing manufacturing and technology together under one roof.</p></div></li>
     </ol>
+  </div>
+</section>
+
+<!-- ===== ADD-ON: Projects showcase (inserted only; nothing around it is edited) ===== -->
+<section class="light" id="projects">
+  <div class="wrap">
+    <h2 data-reveal>Things I’ve<br>built.</h2>
+    <p class="pj-lead" data-reveal style="--d:.1s">Four projects around the textile business, from the production floor to the customer’s screen.</p>
+    <div class="pj-stack">
+    <article class="pj-card pj-c1" id="pj-erp" style="--i:0">
+      <div class="pj-stage">
+        <div class="pj-frame">
+          <div class="pj-bar"><i></i><i></i><i></i><span>Textile ERP – production control</span></div>
+          <div class="pj-shots"><div class="pj-shot on" data-label="Dashboard" data-cap="Live dashboard of parties, orders and production stages."><img src="images/erp-dashboard.webp" alt="Textile ERP dashboard showing parties, orders and production totals" width="1440" height="675" loading="lazy" decoding="async"></div><div class="pj-shot" data-label="Charts" data-cap="Charts for stage-wise totals, monthly production and pending work."><img src="images/erp-charts.webp" alt="Textile ERP charts for monthly production and stage-wise pending work" width="1440" height="675" loading="lazy" decoding="async"></div></div>
+        </div>
+        <div class="pj-tabs"><button type="button" class="pj-tab" aria-pressed="true">Dashboard</button><button type="button" class="pj-tab" aria-pressed="false">Charts</button></div>
+        <p class="pj-cap">Live dashboard of parties, orders and production stages.</p>
+      </div>
+      <div class="pj-body">
+        <h3>Textile production ERP</h3>
+        <p>A production-control system for S S Saziya Creation. One dashboard follows parties, orders, cutting, stitching, finishing and dispatch, and refreshes itself every 30 seconds.</p>
+        <ul><li>Masters, orders, production, dispatch and billing in one place</li><li>Party ledger, reports and an audit log</li><li>Monthly production and stage-wise pending charts</li></ul>
+        <div class="pj-tags"><span>ERP</span><span>Production</span><span>Dashboards</span></div>
+        
+        
+      </div>
+    </article>
+    <article class="pj-card pj-c2" id="pj-as3" style="--i:1">
+      <div class="pj-stage">
+        <div class="pj-frame">
+          <div class="pj-bar"><i></i><i></i><i></i><span>as3.in</span></div>
+          <div class="pj-shots"><div class="pj-shot on" data-label="Home" data-cap="The home page: brand header, hero image and chat helper."><img src="images/as3-home.webp" alt="AS-3 website home page with four men in kurtas" width="1440" height="675" loading="lazy" decoding="async"></div><div class="pj-shot" data-label="Shop" data-cap="The shop: categories on the left, products with prices and colours."><img src="images/as3-shop.webp" alt="AS-3 shop page listing kurtas and thobes with prices and colour options" width="1440" height="675" loading="lazy" decoding="async"></div></div>
+        </div>
+        <div class="pj-tabs"><button type="button" class="pj-tab" aria-pressed="true">Home</button><button type="button" class="pj-tab" aria-pressed="false">Shop</button></div>
+        <p class="pj-cap">The home page: brand header, hero image and chat helper.</p>
+      </div>
+      <div class="pj-body">
+        <h3>AS-3 brand website</h3>
+        <p>The customer-facing store for AS-3: a clean catalogue of kurtas and thobes with categories, colour options, quick view and prices.</p>
+        <ul><li>Browse kurta, thobe and party wear by category</li><li>Colour swatches and quick view on every product</li><li>Built-in chat for customer questions</li></ul>
+        <div class="pj-tags"><span>E-commerce</span><span>Brand</span><span>Catalogue</span></div>
+        <a class="pj-link" href="https://as3.in" target="_blank" rel="noopener">Visit as3.in</a>
+        
+      </div>
+    </article>
+    <article class="pj-card pj-c3" id="pj-saziya" style="--i:2">
+      <div class="pj-stage">
+        <div class="pj-frame">
+          <div class="pj-bar"><i></i><i></i><i></i><span>S S Saziya Creation</span></div>
+          <div class="pj-shots"><div class="pj-shot on" data-label="AS3 Men’s" data-cap="AS3 men’s range, split into wholesale and retail."><img src="images/saziya-as3-mens.webp" alt="S S Saziya Creation website section about the AS3 men’s ethnic wear range" width="1440" height="675" loading="lazy" decoding="async"></div><div class="pj-shot" data-label="Enquiry" data-cap="Enquiry form that hands the details to WhatsApp."><img src="images/saziya-enquiry.webp" alt="S S Saziya Creation enquiry form with a Continue on WhatsApp button" width="1440" height="675" loading="lazy" decoding="async"></div></div>
+        </div>
+        <div class="pj-tabs"><button type="button" class="pj-tab" aria-pressed="true">AS3 Men’s</button><button type="button" class="pj-tab" aria-pressed="false">Enquiry</button></div>
+        <p class="pj-cap">AS3 men’s range, split into wholesale and retail.</p>
+      </div>
+      <div class="pj-body">
+        <h3>S S Saziya Creation company profile</h3>
+        <p>A company site that explains what the factory makes and how to work with it: the AS3 men’s range, wholesale and retail routes, and an enquiry form that continues on WhatsApp.</p>
+        <ul><li>AS3 wholesale and retail explained side by side</li><li>Enquiry form that continues on WhatsApp</li><li>Sections for ladies’ wear, private label, process and FAQ</li></ul>
+        <div class="pj-tags"><span>Company profile</span><span>Lead generation</span></div>
+        
+        
+      </div>
+    </article>
+    <article class="pj-card pj-c4" id="pj-agents" style="--i:3">
+      <div class="pj-stage">
+        <div class="pj-frame">
+          <div class="pj-bar"><i></i><i></i><i></i><span>AI agents – chat and voice</span></div>
+          <div class="pj-shots"><div class="pj-shot pj-mock on" data-label="Chat agent" data-cap="Chat agent for customer service and feedback (illustration)."><div class="pj-chat"><div class="pj-b u" style="--k:0">Hi, I’d like to share feedback on my order.</div><div class="pj-b a" style="--k:1">Thanks for taking the time. How were the fit and the fabric?</div><div class="pj-b u" style="--k:2">The fit was perfect and the fabric feels premium.</div><div class="pj-b a" style="--k:3">Great to hear. I’ve noted that down for the team.</div></div><span class="pj-ill">Illustration</span></div><div class="pj-shot pj-mock" data-label="Voice agent" data-cap="Voice agent that answers direct calls (illustration)."><div class="pj-call"><div class="pj-ring" aria-hidden="true">📞</div><div>Direct call, answered by the voice agent</div><div class="pj-wave" aria-hidden="true"><i style="--k:0"></i><i style="--k:1"></i><i style="--k:2"></i><i style="--k:3"></i><i style="--k:4"></i><i style="--k:5"></i><i style="--k:6"></i><i style="--k:7"></i><i style="--k:8"></i><i style="--k:9"></i><i style="--k:10"></i><i style="--k:11"></i><i style="--k:12"></i><i style="--k:13"></i></div></div><span class="pj-ill">Illustration</span></div></div>
+        </div>
+        <div class="pj-tabs"><button type="button" class="pj-tab" aria-pressed="true">Chat agent</button><button type="button" class="pj-tab" aria-pressed="false">Voice agent</button></div>
+        <p class="pj-cap">Chat agent for customer service and feedback (illustration).</p>
+      </div>
+      <div class="pj-body">
+        <h3>AI service and voice agents</h3>
+        <p>A chat agent that handles customer service and collects feedback, and a voice agent that takes direct calls.</p>
+        <ul><li>Service questions and feedback in one conversation</li><li>Voice agent that answers direct phone calls</li></ul>
+        <div class="pj-tags"><span>AI agents</span><span>Chat</span><span>Voice</span></div>
+        
+        
+      </div>
+    </article>
+    </div>
   </div>
 </section>
 
@@ -592,6 +778,124 @@ section h2::after{content:"";display:block;width:72px;height:6px;margin-top:.28e
     var dx=Math.max(r.left-e.clientX,0,e.clientX-r.right), dy=Math.max(r.top-e.clientY,0,e.clientY-r.bottom);
     if(Math.hypot(dx,dy)<=30){m.x(clamp((e.clientX-(r.left+r.width/2))*0.15));m.y(clamp((e.clientY-(r.top+r.height/2))*0.25));}
     else{m.x(0);m.y(0);}});});
+})();
+</script>
+
+<script>
+/* ===== ADD-ON: Projects motion + reactions (appended only; nothing above is edited) ===== */
+(function(){
+  var sec=document.getElementById('projects'); if(!sec) return;
+  var still=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var cards=[].slice.call(sec.querySelectorAll('.pj-card'));
+
+  /* add "Projects" to the existing nav without touching its markup */
+  var ul=document.querySelector('nav ul');
+  if(ul){var v=ul.querySelector('a[href="#vision"]'),li=document.createElement('li');
+    li.innerHTML='<a href="#projects">Projects</a>';
+    if(v&&v.parentNode) ul.insertBefore(li,v.parentNode); else ul.appendChild(li);}
+
+  /* reactions are remembered in this browser only */
+  var store={}; try{store=JSON.parse(localStorage.getItem('pj-react')||'{}')}catch(e){}
+  function burst(b){
+    var box=b.parentNode, left=b.offsetLeft+b.offsetWidth/2-12;
+    for(var k=0;k<3;k++){
+      var s=document.createElement('span'); s.className='pj-fly'; s.textContent=b.getAttribute('data-e'); s.style.left=left+'px'; box.appendChild(s);
+      var dx=(Math.random()-.5)*70, dy=-(50+Math.random()*50);
+      var a=s.animate([{transform:'translate(0,0) scale(.6)',opacity:1},{transform:'translate('+dx+'px,'+dy+'px) scale(1.2)',opacity:0}],
+        {duration:900+k*120,easing:'cubic-bezier(.2,.8,.2,1)',fill:'forwards'});
+      a.onfinish=(function(n){return function(){n.remove()}})(s);
+    }
+  }
+
+  cards.forEach(function(card){
+    var shots=[].slice.call(card.querySelectorAll('.pj-shot')), tabs=[].slice.call(card.querySelectorAll('.pj-tab')),
+        cap=card.querySelector('.pj-cap'), frame=card.querySelector('.pj-frame'),
+        cur=0, timer=null, inView=false, stopped=false;
+
+    function show(n){
+      cur=(n+shots.length)%shots.length;
+      shots.forEach(function(s,i){s.classList.toggle('on',i===cur)});
+      tabs.forEach(function(t,i){t.setAttribute('aria-pressed',i===cur?'true':'false')});
+      cap.textContent=shots[cur].getAttribute('data-cap');
+    }
+    function pause(){clearInterval(timer);timer=null}
+    function play(){if(still||stopped||timer||!inView) return; timer=setInterval(function(){show(cur+1)},5200)}
+
+    tabs.forEach(function(t,i){t.addEventListener('click',function(){stopped=true;pause();show(i)})});
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(en){inView=en[0].isIntersecting; inView?play():pause()},{threshold:.4}).observe(card);
+    }
+    frame.addEventListener('pointerenter',pause);
+    frame.addEventListener('pointerleave',play);
+
+    /* gentle 3D tilt, only on devices that hover */
+    if(!still&&matchMedia('(hover:hover)').matches){
+      frame.addEventListener('pointermove',function(e){
+        var r=frame.getBoundingClientRect(),px=(e.clientX-r.left)/r.width-.5,py=(e.clientY-r.top)/r.height-.5;
+        frame.style.setProperty('--ry',(px*6).toFixed(2)+'deg'); frame.style.setProperty('--rx',(-py*5).toFixed(2)+'deg');
+      });
+      frame.addEventListener('pointerleave',function(){frame.style.setProperty('--rx','0deg');frame.style.setProperty('--ry','0deg')});
+    }
+
+    [].forEach.call(card.querySelectorAll('.pj-r'),function(b){
+      var key=card.id+':'+b.getAttribute('data-e'), out=b.querySelector('b'); out.textContent=store[key]||0;
+      b.addEventListener('click',function(){
+        store[key]=(store[key]||0)+1; out.textContent=store[key];
+        try{localStorage.setItem('pj-react',JSON.stringify(store))}catch(e){}
+        if(!still) burst(b);
+      });
+    });
+  });
+
+  /* stack effect: the card underneath eases back as the next one slides over it */
+  if(!still){
+    var tick=false;
+    function stack(){
+      tick=false;
+      cards.forEach(function(c,i){
+        var n=cards[i+1]; if(!n) return;
+        if(window.innerWidth<=860){c.style.transform='';return;}
+        var a=c.getBoundingClientRect(), b=n.getBoundingClientRect();
+        var p=Math.min(Math.max(1-(b.top-a.top)/a.height,0),1);
+        c.style.transform='scale('+(1-.045*p).toFixed(4)+')';
+      });
+    }
+    function req(){if(!tick){tick=true;requestAnimationFrame(stack)}}
+    addEventListener('scroll',req,{passive:true}); addEventListener('resize',req); stack();
+  }
+})();
+</script>
+
+<script>
+/* ===== ADD-ON: Fluid-tail cursor (appended only; nothing above is edited) =====
+   A chain of soft blobs, each one chasing the one in front of it.
+   Only runs on devices with a real mouse, and not when "reduce motion" is on. */
+(function(){
+  if(!matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var root=document.documentElement, N=14, K=.42, tails=[], mx=0, my=0, seen=false, i, el, s;
+  for(i=0;i<N;i++){
+    el=document.createElement('div'); el.className='ct'; el.setAttribute('aria-hidden','true'); s=34-i*1.7;
+    el.style.cssText='width:'+s+'px;height:'+s+'px;margin:'+(-s/2)+'px 0 0 '+(-s/2)+'px;--o:'+(1-i*.055).toFixed(2);
+    document.body.appendChild(el); tails.push({el:el,x:0,y:0});
+  }
+  var dot=document.createElement('div'); dot.className='ct-dot'; dot.setAttribute('aria-hidden','true'); document.body.appendChild(dot);
+  document.addEventListener('pointerover',function(e){dot.classList.toggle('ct-hot',!!(e.target.closest&&e.target.closest('a,button')))});
+  addEventListener('pointermove',function(e){
+    mx=e.clientX; my=e.clientY;
+    if(!seen){seen=true; tails.forEach(function(t){t.x=mx;t.y=my}); root.classList.add('ct-on');}
+  },{passive:true});
+  root.addEventListener('mouseleave',function(){seen=false; root.classList.remove('ct-on');});
+  (function frame(){
+    requestAnimationFrame(frame);
+    if(!seen) return;
+    dot.style.transform='translate3d('+mx+'px,'+my+'px,0)';
+    var px=mx, py=my;
+    tails.forEach(function(t){
+      t.x+=(px-t.x)*K; t.y+=(py-t.y)*K; px=t.x; py=t.y;
+      t.el.style.transform='translate3d('+t.x+'px,'+t.y+'px,0)';
+    });
+  })();
 })();
 </script>
 </body>
